@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mental Health Predictor – Form</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="form-page"
+      style="background-image: url('{{ url_for('static', filename='page2_background.jpg') }}');
+             background-size: cover;
+             background-position: center;
+             background-repeat: no-repeat;">
+  <header class="form-header">
+    <h2>Please enter all details below*</h2>
+  </header>
+
+  <main class="form-main">
+    <form method="POST" action="{{ url_for('form') }}">
+      <div class="form-fields">
+        {% for label, key, options in fields %}
+          <div class="field-block">
+            <label for="{{ key }}">{{ loop.index }}. {{ label }}</label>
+            <select id="{{ key }}" name="{{ key }}" required>
+              <option value="">-- Select --</option>
+              {% for opt in options %}
+                <option value="{{ opt }}" {% if values.get(key) == opt %}selected{% endif %}>{{ opt }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="bottom-ribbon">
+        <button type="submit" class="btn-submit">Click here to submit</button>
+
+        <div class="result-box">
+          <span class="result-label">Result:</span>
+          <input type="text" readonly value="{{ result }}" class="result-input" />
+        </div>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

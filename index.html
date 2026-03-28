@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mental Health Predictor – Landing</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body
+  class="landing"
+  style="background-image: url('{{ url_for('static', filename='mental_health_matters.jpg') }}');"
+>
+  <main class="landing-wrapper">
+    <div class="landing-bubble" role="banner" aria-label="Welcome">
+      <h1 class="landing-title">
+        Hi, Welcome to Mental health Predictor Tool by <span class="brand">NYC OMH</span>
+      </h1>
+    </div>
+
+    <a class="btn btn-primary get-started" href="{{ url_for('form') }}" role="button" aria-label="Get Started">
+      Get Started!
+    </a>
+  </main>
+</body>
+</html>
