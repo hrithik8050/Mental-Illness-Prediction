@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}About | NYC OMH Predictor{% endblock %}
+
+{% block content %}
+<div class="about-page">
+  <h1>About This Tool</h1>
+
+  <section class="about-section">
+    <h2>Project Overview</h2>
+    <p>
+      This Mental Health Risk Prediction tool was developed using anonymized population health data
+      from the New York City Office of Mental Health (NYC OMH). It uses supervised machine learning
+      to predict whether an individual is at risk of mental illness based on 33 demographic,
+      socioeconomic, and clinical features.
+    </p>
+  </section>
+
+  <section class="about-section">
+    <h2>Models</h2>
+    <div class="models-table-wrapper">
+      <table class="models-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Random Forest</strong></td>
+            <td>Ensemble</td>
+            <td>High-accuracy ensemble of decision trees with hyperparameter tuning via GridSearchCV.</td>
+          </tr>
+          <tr>
+            <td><strong>Decision Tree</strong></td>
+            <td>Tree</td>
+            <td>Interpretable single-tree model, useful for understanding decision logic.</td>
+          </tr>
+          <tr>
+            <td><strong>Logistic Regression</strong></td>
+            <td>Linear</td>
+            <td>Baseline linear classifier; fast and interpretable with probability calibration.</td>
+          </tr>
+          <tr>
+            <td><strong>Neural Network (MLP)</strong></td>
+            <td>Deep Learning</td>
+            <td>Multi-layer perceptron with hidden layers trained on the same feature set.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>Data &amp; Features</h2>
+    <p>
+      Training data was sourced from the NYC OMH public dataset. Features cover age, household
+      composition, education, employment, housing, insurance status, chronic conditions, substance
+      use, criminal justice involvement, and more. The target variable is a binary indicator
+      of mental illness diagnosis.
+    </p>
+  </section>
+
+  <section class="about-section">
+    <h2>Limitations &amp; Disclaimer</h2>
+    <div class="alert alert-warning">
+      <p><strong>This tool is for research and educational purposes only.</strong></p>
+      <ul>
+        <li>Predictions reflect statistical patterns in historical data and may not apply to every individual.</li>
+        <li>The model was trained on NYC population data; generalisability to other populations is not guaranteed.</li>
+        <li>Never use this output as a substitute for a professional clinical assessment.</li>
+        <li>Results should be interpreted by qualified mental health professionals.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+{% endblock %}

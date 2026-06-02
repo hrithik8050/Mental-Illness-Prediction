@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Mental Health Predictor | NYC OMH{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">NYC Office of Mental Health</div>
+    <h1 class="hero-title">
+      Mental Health<br>
+      <span class="hero-highlight">Risk Assessment</span>
+    </h1>
+    <p class="hero-subtitle">
+      An evidence-based screening tool powered by machine learning, trained on
+      NYC OMH population health data to help identify individuals at risk.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('prediction_form') }}" class="btn btn-primary btn-lg">
+        Start Assessment
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="{{ url_for('about') }}" class="btn btn-outline btn-lg">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-container">
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>4 ML Models</h3>
+      <p>Choose between Random Forest, Decision Tree, Logistic Regression, or Neural Network for your prediction.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>33 Risk Factors</h3>
+      <p>Comprehensive assessment covering demographics, health conditions, substance use, socioeconomic status, and more.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant Results</h3>
+      <p>Real-time risk scoring with confidence levels to support informed clinical decision-making.</p>
+    </div>
+  </div>
+</section>
+
+<section class="disclaimer">
+  <div class="disclaimer-container">
+    <strong>⚠️ Important Disclaimer:</strong>
+    This tool is intended for research and educational purposes only. Results should not be used
+    as a substitute for professional clinical assessment or diagnosis. Always consult a qualified
+    mental health professional.
+  </div>
+</section>
+{% endblock %}

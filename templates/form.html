@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Risk Assessment Form | NYC OMH Predictor{% endblock %}
+
+{% block content %}
+<div class="form-page">
+  <div class="form-header">
+    <h1>Mental Health Risk Assessment</h1>
+    <p class="form-subtitle">Complete all 33 fields below. All responses are processed locally and not stored.</p>
+  </div>
+
+  {% if error %}
+  <div class="alert alert-error" role="alert">
+    <strong>Error:</strong> {{ error }}
+  </div>
+  {% endif %}
+
+  {% if result %}
+  <div class="result-card {% if result.prediction == 1 %}result-risk{% else %}result-safe{% endif %}" id="result-section">
+    <div class="result-icon">{% if result.prediction == 1 %}⚠️{% else %}✅{% endif %}</div>
+    <div class="result-body">
+      <h2 class="result-label">{{ result.label }}</h2>
+      {% if result.confidence %}
+      <div class="result-confidence">
+        <span>Model confidence: <strong>{{ result.confidence }}%</strong></span>
+        {% if result.risk_probability is defined %}
+        <span class="risk-prob">Risk probability: <strong>{{ result.risk_probability }}%</strong></span>
+        {% endif %}
+      </div>
+      <div class="confidence-bar">
+        <div class="confidence-fill" style="width: {{ result.risk_probability }}%"></div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('prediction_form') }}" id="assessment-form" novalidate>
+    <div class="form-section">
+      <h2 class="section-title">Model Selection</h2>
+      <div class="model-selector">
+        {% for value, label in model_choices %}
+        <label class="model-option {% if selected_model == value %}selected{% endif %}">
+          <input type="radio" name="model_choice" value="{{ value }}"
+                 {% if selected_model == value %}checked{% endif %}
+                 onchange="this.closest('.model-selector').querySelectorAll('.model-option').forEach(e=>e.classList.remove('selected')); this.closest('.model-option').classList.add('selected')">
+          <span class="model-label">{{ label }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Patient Information</h2>
+      <div class="fields-grid">
+        {% for label, feat, options in fields %}
+        <div class="field-group {% if not values.get(feat) and result is not none %}field-error{% endif %}">
+          <label class="field-label" for="{{ feat }}">
+            <span class="field-num">{{ loop.index }}</span>
+            {{ label }}
+          </label>
+          <select class="field-select" id="{{ feat }}" name="{{ feat }}" required>
+            <option value="">— Select —</option>
+            {% for opt in options %}
+            <option value="{{ opt }}" {% if values.get(feat) == opt %}selected{% endif %}>{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn btn-primary btn-lg btn-submit" id="submit-btn">
+        <span class="btn-text">Run Prediction</span>
+        <span class="btn-spinner" style="display:none">Analyzing…</span>
+      </button>
+      <button type="reset" class="btn btn-outline" onclick="clearForm()">Clear Form</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Scroll to result after submission
+  {% if result %}
+  document.getElementById('result-section')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  {% endif %}
+
+  function clearForm() {
+    document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+  }
+
+  document.getElementById('assessment-form').addEventListener('submit', function() {
+    const btn = document.getElementById('submit-btn');
+    btn.querySelector('.btn-text').style.display = 'none';
+    btn.querySelector('.btn-spinner').style.display = 'inline';
+    btn.disabled = true;
+  });
+</script>
+{% endblock %}
