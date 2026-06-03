@@ -41,4 +41,4 @@ jobs:
           cache: pip
       - run: pip install ruff
       - name: Lint with ruff
-        run: ruff check . --ignore E501
+        run: ruff check . --ignore E501 --exclude notebooks/

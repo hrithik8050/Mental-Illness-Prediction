@@ -1,9 +1,10 @@
 """Unit tests for the prediction pipeline."""
 
-import pytest
+import os
+import sys
+
 import pandas as pd
 
-import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from predictor import preprocess, align_features, LABEL_ENCODED_FEATURES
