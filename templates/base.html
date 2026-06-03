@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="NYC OMH Mental Health Risk Prediction Tool — evidence-based screening using machine learning." />
+  <title>{% block title %}Mental Health Predictor | NYC OMH{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="nav-brand" href="{{ url_for('index') }}">
+        <span class="brand-icon">🧠</span>
+        <span class="brand-text">NYC&nbsp;OMH&nbsp;<span class="brand-light">Predictor</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>Home</a></li>
+        <li><a href="{{ url_for('prediction_form') }}" {% if request.endpoint == 'prediction_form' %}class="active"{% endif %}>Assessment</a></li>
+        <li><a href="{{ url_for('about') }}" {% if request.endpoint == 'about' %}class="active"{% endif %}>About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p>
+        &copy; 2024 NYC Office of Mental Health &mdash; Mental Health Risk Assessment Tool.
+        <span class="footer-note">For clinical and research use only. Not a substitute for professional diagnosis.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
